@@ -23,6 +23,9 @@ if [ ! -x "${SERVER_BIN}" ]; then
     exit 1
 fi
 
+# Create writable home directory structure (tmpfs is mounted empty on each start)
+mkdir -p "${QUAKE3_DIR}/.q3a/baseq3"
+
 # Check for game data
 if [ ! -f "${BASEQ3_DIR}/pak0.pk3" ]; then
     echo "============================================================"
