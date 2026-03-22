@@ -43,7 +43,7 @@ the host kernel — a VM provides a stronger security boundary.
 |---------|-------|
 | **Type** | VM (not LXC) |
 | **vCPU** | 2 |
-| **RAM** | 512MB |
+| **RAM** | 1024MB |
 | **Disk** | 8GB, VirtIO SCSI |
 | **Network** | VirtIO NIC, static IP |
 | **OS** | Debian 12 netinst (minimal, no desktop) |
