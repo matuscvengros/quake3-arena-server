@@ -37,7 +37,18 @@ The recommended deployment is a dedicated VM (not LXC) for kernel-level
 isolation, since this service is exposed to the internet. LXC containers share
 the host kernel — a VM provides a stronger security boundary.
 
-**Recommended VM specs:** Debian 12 minimal, 1 vCPU, 512MB RAM, 8GB disk.
+**Recommended VM specs:**
+
+| Setting | Value |
+|---------|-------|
+| **Type** | VM (not LXC) |
+| **vCPU** | 2 |
+| **RAM** | 512MB |
+| **Disk** | 8GB, VirtIO SCSI |
+| **Network** | VirtIO NIC, static IP |
+| **OS** | Debian 12 netinst (minimal, no desktop) |
+| **Guest Agent** | Enable |
+| **Start on boot** | Enable |
 
 ## Prerequisites
 
