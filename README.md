@@ -67,11 +67,11 @@ the host kernel — a VM provides a stronger security boundary.
 ├── .dockerignore        # Keeps secrets and game data out of build context
 ├── .gitignore           # Keeps secrets and game data out of git
 └── baseq3/              # YOU CREATE THIS — mount point for game data
-    ├── pak0.pk3          # Required — core game data (~480MB)
-    ├── pak1.pk3          # Recommended — patch data
+    ├── pak0.pk3         # Required — core game data (~480MB)
+    ├── pak1.pk3         # Recommended — patch data
     ├── ...
     ├── pak8.pk3
-    └── server.cfg        # Copied here from project root
+    └── server.cfg       # Copied here from project root (or symlink)
 ```
 
 ## Quick Start
