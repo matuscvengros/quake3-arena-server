@@ -8,9 +8,8 @@
 # -----------------------------------------------------------------------------
 FROM alpine:3.21 AS builder
 
-# Pin to a specific audited commit for supply chain security
 ARG IOQUAKE3_REPO=https://github.com/ioquake/ioq3.git
-ARG IOQUAKE3_COMMIT=5956299e80b29ef3891bcec8e99cd3e680f34b1a
+ARG IOQUAKE3_BRANCH=main
 
 RUN apk add --no-cache \
     git \
@@ -25,9 +24,7 @@ RUN apk add --no-cache \
 
 WORKDIR /build
 
-RUN git clone ${IOQUAKE3_REPO} ioq3 \
-    && cd ioq3 \
-    && git checkout ${IOQUAKE3_COMMIT}
+RUN git clone --branch ${IOQUAKE3_BRANCH} --depth 1 ${IOQUAKE3_REPO} ioq3
 
 WORKDIR /build/ioq3
 

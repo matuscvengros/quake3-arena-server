@@ -200,16 +200,12 @@ back to `d1`. Add or remove entries as desired.
 The Dockerfile uses a multi-stage build:
 
 **Stage 1 (builder):** Starts from Alpine Linux, installs build tools (gcc,
-cmake, etc.), clones the ioquake3 source at a pinned commit, and compiles
+cmake, etc.), clones the ioquake3 source and compiles
 the dedicated server binary (`ioq3ded`). This stage is ~250MB.
 
 **Stage 2 (runtime):** Starts from a fresh Alpine image, installs only the
 minimal runtime libraries (`libstdc++`, `libgcc`), and copies the compiled
 binary from stage 1. The build tools are discarded. Final image is ~15MB.
-
-The source is pinned to a specific commit (`5956299`) rather than tracking
-the `main` branch. This prevents supply chain attacks — a compromised
-upstream repository cannot silently inject malicious code into builds.
 
 ## Security Hardening
 
@@ -225,7 +221,7 @@ This setup applies defense-in-depth for an internet-facing service:
 | **tmpfs for runtime**  | Writes go to RAM-backed tmpfs, capped and ephemeral     |
 | **Resource limits**    | CPU and memory capped to prevent DoS/resource starvation|
 | **Input validation**   | Environment variables validated before use              |
-| **Pinned source**      | ioquake3 built from a specific audited commit           |
+| **Built from source**  | ioquake3 compiled from official repository              |
 | **Multi-stage build**  | No compilers or build tools in the runtime image        |
 | **Secrets via .env**   | RCON password never in the image or server.cfg          |
 
@@ -331,5 +327,5 @@ server started successfully.
 Check `docker compose logs` for errors. Common cause: insufficient memory
 (increase the `memory` limit in docker-compose.yml).
 
-**Build fails at cmake step** — The pinned commit may have build issues on
-your architecture. Check the ioquake3 issue tracker or try a newer commit.
+**Build fails at cmake step** — Check the ioquake3 issue tracker for
+known build issues on your architecture.
