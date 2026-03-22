@@ -1,0 +1,42 @@
+services:
+  quake3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quake3-server
+    restart: unless-stopped
+    ports:
+      - "27960:27960/udp"
+    volumes:
+      # Mount your baseq3 directory containing pak0.pk3 and other pak files
+      - ./baseq3:/opt/quake3/baseq3:ro
+    env_file:
+      - .env
+    environment:
+      - Q3_PORT=27960
+      - Q3_MAP=q3dm17
+      - Q3_CONFIG=server.cfg
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
+    # Security hardening
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=10M
+      - /opt/quake3/.q3a:size=50M
+    # Health check
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f ioq3ded || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
