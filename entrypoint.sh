@@ -55,6 +55,9 @@ validate_input "${Q3_CONFIG}" "Q3_CONFIG"
 
 # RCON password — injected via environment, never hardcoded
 Q3_RCON="${Q3_RCON:-}"
+if [ -n "${Q3_RCON}" ]; then
+    validate_input "${Q3_RCON}" "Q3_RCON"
+fi
 
 echo "Starting Quake 3 Arena dedicated server..."
 echo "  Port:   ${Q3_PORT}"
