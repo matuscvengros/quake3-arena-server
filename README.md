@@ -1,7 +1,7 @@
 # Quake 3 Arena Dedicated Server
 
-[![Build and Push](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml/badge.svg)](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml)
-[![Docker Image Version](https://ghcr-badge.egpl.dev/matuscvengros/quake3-arena-server/latest_tag?trim=major&label=version)](https://github.com/matuscvengros/quake3-arena-server/pkgs/container/quake3-arena-server)
+[![Version](https://img.shields.io/github/v/tag/matuscvengros/quake3-arena-server?label=version&sort=semver)](https://github.com/matuscvengros/quake3-arena-server/tags)
+[![Build](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml/badge.svg)](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/github/license/matuscvengros/quake3-arena-server)](LICENSE)
 
 A hardened, Docker-based Quake 3 Arena dedicated server built from source using the [ioquake3](https://github.com/ioquake/ioq3) engine.
