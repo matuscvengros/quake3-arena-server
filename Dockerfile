@@ -44,6 +44,9 @@ RUN cmake -B build -G Ninja \
 # -----------------------------------------------------------------------------
 FROM alpine:3.21
 
+LABEL org.opencontainers.image.source="https://github.com/matuscvengros/quake3-arena-server"
+LABEL org.opencontainers.image.description="Quake 3 Arena dedicated server built from ioquake3 source"
+
 RUN apk add --no-cache \
     libstdc++ \
     libgcc \
