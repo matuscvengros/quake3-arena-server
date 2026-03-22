@@ -1,9 +1,9 @@
 services:
-  quake3:
+  ioquake3-server:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: quake3-server
+    container_name: ioquake3-server
     restart: unless-stopped
     ports:
       - "27960:27960/udp"

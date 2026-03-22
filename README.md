@@ -1,6 +1,6 @@
 # Quake 3 Arena Dedicated Server
 
-[![Docker](https://img.shields.io/badge/docker-ioquake3--server-blue?logo=docker&logoColor=white)](Dockerfile)
+[![Docker](https://img.shields.io/badge/Docker-ioquake3--server-blue?logo=docker&logoColor=white)](Dockerfile)
 [![Build](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml/badge.svg)](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/github/license/matuscvengros/quake3-arena-server)](LICENSE)
 
@@ -261,7 +261,7 @@ docker compose restart
 docker compose up -d --build
 
 # Shell into the container for debugging
-docker compose run --rm quake3 sh
+docker compose run --rm ioquake3-server sh
 
 # Check container health
 docker compose ps
