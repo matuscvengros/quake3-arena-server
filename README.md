@@ -1,6 +1,6 @@
 # Quake 3 Arena Dedicated Server
 
-[![Version](https://img.shields.io/github/v/tag/matuscvengros/quake3-arena-server?label=version&sort=semver)](https://github.com/matuscvengros/quake3-arena-server/tags)
+[![Docker](https://img.shields.io/badge/docker-ioquake3--server-blue?logo=docker&logoColor=white)](Dockerfile)
 [![Build](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml/badge.svg)](https://github.com/matuscvengros/quake3-arena-server/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/github/license/matuscvengros/quake3-arena-server)](LICENSE)
 
