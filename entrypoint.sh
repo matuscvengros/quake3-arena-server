@@ -40,7 +40,7 @@ fi
 # Validate environment inputs — only allow safe characters
 validate_input() {
     case "$1" in
-        *[!a-zA-Z0-9._-]*) echo "ERROR: Invalid characters in $2: $1"; exit 1 ;;
+        *[!a-zA-Z0-9._@^%+:=-]*) echo "ERROR: Invalid characters in $2: $1"; exit 1 ;;
     esac
 }
 
