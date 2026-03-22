@@ -2,5 +2,4 @@
 .env
 
 # Game data — copyrighted, too large for git
-baseq3/
-*.pk3
+baseq3
