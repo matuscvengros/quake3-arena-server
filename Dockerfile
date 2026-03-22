@@ -58,9 +58,8 @@ RUN addgroup -S quake3 && adduser -S -G quake3 -h /opt/quake3 quake3
 # Copy compiled server binary and game libraries from builder
 COPY --from=builder /opt/quake3 /opt/quake3
 
-# Copy entrypoint and default config
+# Copy entrypoint
 COPY entrypoint.sh /opt/quake3/entrypoint.sh
-COPY server.cfg /opt/quake3/baseq3/server.cfg
 
 RUN chmod +x /opt/quake3/entrypoint.sh \
     && chown -R quake3:quake3 /opt/quake3
