@@ -11,7 +11,7 @@ A hardened, Docker-based Quake 3 Arena dedicated server built from source using 
 ```
 Internet
   │
-  │ UDP 27960
+  │ UDP 27960 / Cloudflare Tunnel
   ▼
 ┌──────────────────────── Firewall (DMZ) ────────────────────────┐
 │                                                                │
@@ -276,11 +276,13 @@ If `Q3_RCON` is set, you can administer the server from a Quake 3 client:
 
 ### Updating ioquake3
 
-To update the engine to a newer commit:
+To update the engine to the latest version:
 
-1. Check the [ioquake3 repository](https://github.com/ioquake/ioq3) for recent commits
-2. Update the `IOQUAKE3_COMMIT` value in the `Dockerfile`
-3. Rebuild: `docker compose up -d --build`
+```bash
+docker compose up -d --build --no-cache
+```
+
+The `--no-cache` flag forces a fresh clone of the ioquake3 `main` branch.
 
 ### Monitoring
 
@@ -290,9 +292,12 @@ to `server.log` in the tmpfs runtime directory. The healthcheck runs every
 
 ## Network Setup
 
-### Firewall / Firewall
+There are two ways to expose the server to the internet: **port forwarding**
+(traditional) or **Cloudflare Tunnel** (no open ports on your firewall).
 
-Create a port forwarding rule on your Firewall:
+### Option A: Port Forwarding
+
+Create a port forwarding rule on your firewall:
 
 - **Protocol:** UDP
 - **External port:** 27960
@@ -301,6 +306,46 @@ Create a port forwarding rule on your Firewall:
 
 If placing the VM in a DMZ zone, ensure no other services on the VM are
 exposed. The VM should be single-purpose.
+
+### Option B: Cloudflare Tunnel (no open ports)
+
+Cloudflare Tunnel creates an outbound connection from your VM to Cloudflare's
+edge — no inbound firewall rules needed. Traffic flows:
+
+```
+Internet → Cloudflare Edge → Tunnel → VM (cloudflared) → localhost:27960
+```
+
+**1. Install cloudflared on the VM:**
+
+```bash
+# Add Cloudflare GPG key
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg \
+  | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null
+
+# Add Cloudflare apt repository
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' \
+  | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
+# Install cloudflared
+sudo apt-get update && sudo apt-get install -y cloudflared
+```
+
+**2. Register the tunnel service:**
+
+```bash
+sudo cloudflared service install <token>
+```
+
+The token is obtained from the Cloudflare Zero Trust dashboard when you
+create a tunnel.
+
+**3. Configure the tunnel** in the Cloudflare dashboard to route your
+desired hostname to `udp://localhost:27960`.
+
+With this setup, your firewall has zero inbound rules. The `cloudflared`
+service runs on the VM and survives reboots automatically.
 
 ### LAN Play
 
